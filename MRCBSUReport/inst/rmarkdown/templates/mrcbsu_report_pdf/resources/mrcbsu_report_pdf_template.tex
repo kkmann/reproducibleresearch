@@ -1,0 +1,196 @@
+\documentclass[9pt,twoside,a4paper]{scrartcl}
+
+\usepackage{calc}
+
+\usepackage[%
+    top=2.25cm,%
+    bottom=2cm,%
+    left=1.75cm,%
+    right=1.75cm,
+    headsep=1cm,
+    footskip=1cm + 9pt
+]{geometry}
+
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{amssymb,amsmath}
+
+\usepackage[unicode=true]{hyperref}
+\hypersetup{%
+    colorlinks=true,%
+    linkcolor=black,%
+    citecolor=black,%
+    urlcolor=black,%
+    breaklinks=true%
+}
+\urlstyle{same}  % don't use monospace font for urls
+
+\usepackage{enumitem}
+\SetLabelAlign{parright}{\parbox[t]{\labelwidth}{\raggedleft#1}}
+
+
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+
+\usepackage{longtable,booktabs}
+
+\usepackage{xcolor}
+\definecolor{mrcgrey}{HTML}{baaea2}
+\definecolor{mrclightpurple}{HTML}{ae79bc}
+
+\usepackage{scrlayer-scrpage}
+
+\clearpairofpagestyles
+\chead{{\normalfont \color{white} \bfseries $title$ }}
+\cfoot{{\normalfont \color{white} \bfseries \thepage\ / \pageref*{LastPage}}}
+
+\DeclareNewLayer[
+  background,
+  height=1.5cm,
+  voffset=0cm,
+  contents={\color{mrcgrey}\rule{\layerwidth}{\layerheight}}
+]{head.bg}
+\AddLayersAtBeginOfPageStyle{scrheadings}{head.bg}
+
+\DeclareNewLayer[
+  background,
+  height=1.5cm,
+  voffset=\paperheight - 1.5cm,
+  contents={\color{mrcgrey}\rule{\layerwidth}{\layerheight}}
+]{foot.bg}
+\AddLayersAtBeginOfPageStyle{scrheadings}{foot.bg}
+
+\RequirePackage{array}
+\RequirePackage{lastpage}
+\usepackage{graphicx,grffile,float}
+\usepackage{placeins}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+$if(title)$
+\title{$title$$if(thanks)$\thanks{$thanks$}$endif$}
+$endif$
+
+$if(date)$
+\date{$date$}
+$else$
+\date{\today}
+$endif$
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+\let\oldsection\section
+\renewcommand{\section}[1]{%
+  \newpage\clearpage\vspace*{1.5\baselineskip}%
+  \oldsection{#1}%
+  \vspace*{-1.2\baselineskip}%
+  \noindent\makebox[\linewidth]{\color{mrcgrey}\rule{\linewidth}{3pt}}%
+  \vspace*{.5\baselineskip}%
+}
+
+\let\oldsubsection\subsection
+\renewcommand{\subsection}[1]{%
+  \raggedbottom\pagebreak[2]%
+  \vspace*{1.5\baselineskip}%Space before
+  \begin{minipage}{\linewidth}%
+    \sf\bf%
+    \stepcounter{subsection}%
+    % \parbox{9pt}{\color{mrclightpurple}\rule{9pt}{9pt}}\hspace{.66\baselineskip}%
+    \thesubsection\hspace{.66\baselineskip}#1%
+  \end{minipage}%
+  %\oldsubsection{#1} \makebox[.33\linewidth]{\color{mrclightpurple}\rule{\linewidth}{1.5pt}}%
+  \vspace*{.5\baselineskip}%
+}
+
+
+\begin{document} % DOCUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{titlepage} % TITLE ====================================================
+
+  \vskip 5em%
+  \begin{center}
+  \makebox[\textwidth]{\includegraphics[width=\textwidth]{template_files/mrcbsu_logo.eps}}
+  \end{center}
+  \vskip 15em
+  \begin{center}%
+    {\Huge \bf $title$ \par}%
+  \end{center}%
+  \par
+  \vskip 5em%
+  \noindent\makebox[\textwidth][c]{%
+  \begin{minipage}{.8\textwidth}
+
+    \begin{description}[leftmargin=4cm, style=nextline, align=parright]%
+        $if(statistician)$\item[\textbf{Statistician:}] $statistician$ $endif$
+        $if(investigator)$\item[\textbf{Investigator:}] $investigator$ $endif$
+        $if(datasource)$\item[\textbf{Data source:}] $datasource$ $endif$
+        \item[\textbf{Report generation date:}] $date$
+    \end{description}
+
+      $if(abstract)$
+      \vskip 5em%
+      \textbf{Abstract:}\newline $abstract$
+      $endif$
+
+  \end{minipage}}
+
+\thispagestyle{empty}
+
+\end{titlepage}
+
+
+
+$for(include-before)$ % INCLUDES ---------------------------------------------
+$include-before$
+$endfor$
+
+
+
+\clearpage
+
+$if(toc)$
+{
+$if(colorlinks)$
+\hypersetup{linkcolor=black}
+$endif$
+\setcounter{tocdepth}{$toc-depth$}
+\vspace*{5em}
+\tableofcontents
+}
+$endif$
+$if(lot)$
+\vspace*{5em}
+\listoftables
+$endif$
+$if(lof)$
+\vspace*{5em}
+\listoffigures
+$endif$
+$if(draft)$
+\restoregeometry
+$endif$
+
+\setlength\parindent{0pt}
+
+\clearpage
+$body$
+
+$for(include-after)$
+$include-after$
+$endfor$
+
+\end{document}

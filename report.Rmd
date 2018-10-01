@@ -1,0 +1,133 @@
+---
+title: "Literate Programming with R and Python"
+subtitle: "by example of TensorFlow MNIST Tutorial"
+author: "Kevin Kunzmann"
+date: "02/10/2018"
+output: pdf_document
+---
+
+
+
+## Literate programming using RMarkdown 
+
+[RMarkdown](https://rmarkdown.rstudio.com) provides a simple but powerful way of
+interweaving source code and output with text and enables fully reproducible 
+research reports.
+Similar to the jupyter notebook environment, RMarkdown allows languages other 
+than R - it is even possible to mix different language kernels within the
+same document.
+Most importantly, R and Python can be used within the same document and
+interact accross their seperate sessions via the R package [reticulate](https://github.com/rstudio/reticulate).
+
+This document demonstrates the power of the approach along the lines of the
+[tensorflow]() MNIST digit recognition tutorial.
+The tutorial itself is using python/tensorflow/keras but final plotting is 
+done in R.
+
+
+
+## Setup
+
+```{r r-setup, message=FALSE, warning=FALSE}
+library(reticulate)
+library(tidyverse)
+library(reshape2)
+knitr::opts_chunk$set(echo = TRUE)
+
+random_seed <- as.integer(42)
+n_epochs    <- as.integer(3)
+```
+
+
+
+```{python python-setup}
+import tensorflow as tf
+import numpy as np
+
+tf.set_random_seed(r.random_seed)
+```
+
+
+
+## MNIST classification in TensorFlow
+
+This examples follows along the lines of the [TensorFLow getting-started](https://www.tensorflow.org/tutorials/).
+The objective is to train a classifier for the classic MNIST data set 
+consisting of 28 by 28 pixel grayscale images of the digits 0-9.
+First the MNIST data are loaded.
+Samples sizes are reduced to first 10000 for training and first 1000 for testing.
+
+```{python}
+x_train = np.load("mnist/x_train.npy")
+y_train = np.load("mnist/y_train.npy")
+x_test  = np.load("mnist/x_test.npy")
+y_test  = np.load("mnist/y_test.npy")
+```
+
+The features are then normalized.
+
+```{python}
+x_train, x_test = x_train / 255.0, x_test / 255.0
+```
+
+A sequential [Keras](https://keras.io/) neural network model with dropout layer
+is used as classification model.
+
+```{python}
+model = tf.keras.models.Sequential([
+  tf.keras.layers.Flatten(),
+  tf.keras.layers.Dense(512, activation=tf.nn.relu),
+  tf.keras.layers.Dropout(0.2),
+  tf.keras.layers.Dense(10, activation=tf.nn.softmax)
+])
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+```
+
+The training runs over `r n_epochs` epochs.
+
+```{python}
+history = model.fit(
+  x_train, 
+  y_train, 
+  epochs=r.n_epochs, 
+  verbose=0
+)
+```
+
+The final test-set performance is saved to the python variable 'performance'.
+
+```{python}
+performance = model.evaluate(x_test, y_test, verbose=0)
+```
+
+Switching to R, we can print access the test performance by calling 
+'py$performance' via the magic of R's 'reticulate' package.
+The final test-set accuracy is `r py$performance[2]`.
+
+Using the R package [ggplot2](https://ggplot2.tidyverse.org/) grammar-of-graphics style plotting of accuracy over training epochs is a breeze:
+
+```{r, fig.cap="Accuracy over training epochs."}
+data_frame(
+  epoch    = 1:n_epochs,
+  accuracy = py$history$history$acc %>% as.numeric(),
+) %>% 
+  ggplot(aes(epoch, accuracy)) +
+    geom_point() +
+    geom_line()
+```
+
+```{r, fig.cap="First training sample."}
+melt(py$x_train[1, , ], ) %>% 
+  ggplot(aes(Var2, Var1, fill = value)) +
+    geom_tile() +
+    scale_y_reverse() +
+    theme_void() +
+    scale_fill_gradient(low = "white", high = "black") +
+    coord_fixed() +
+    guides(fill = FALSE) +
+    theme(panel.border = element_rect(color = "black"))
+```
+
+For more details see [knitr](https://yihui.name/knitr/), [pandoc](https://pandoc.org/), and [other language engines in RMarkdown](https://bookdown.org/yihui/rmarkdown/language-engines.html).

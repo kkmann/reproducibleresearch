@@ -1,0 +1,3 @@
+name: .odt report
+description: Standard report template for generating neat looking reports with MRC-BSU styling; can be converted to .docx
+create_dir: true

@@ -1,0 +1,28 @@
+---
+title: ToDo
+
+date: "`r Sys.time()`"
+
+statistician: ToDo
+
+investigator: ToDo
+
+datasource: ToDo
+
+output: MRCBSUReport::mrcbsu_report_odt # feel free to use standard odt_document
+
+abstract: ToDo
+---
+
+```{r setup-chunk, include=FALSE}
+```
+
+
+
+
+
+# Session Info
+
+```{r}
+sessionInfo()
+``` 

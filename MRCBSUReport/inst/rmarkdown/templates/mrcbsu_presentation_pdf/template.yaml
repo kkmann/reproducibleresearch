@@ -1,0 +1,3 @@
+name: Beamer Presentation
+description: LaTeX beamer template for generating neat looking reports with MRC-BSU styling (.pdf via .tex; thanks to Paul Kirk)
+create_dir: true

@@ -1,0 +1,91 @@
+% Copyright 2015 by Paul Kirk
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under GPLv3.
+
+\documentclass[$if(fontsize)$$fontsize$pt$endif$]{beamer}
+\usetheme[pageofpages = of,   % String used between the current
+                              % page and the total page count.
+                              %
+          colortheme  = brown % Should be one of: brown, red,
+                              % green, orange, yellow,
+                              % purple
+          ]{BSU}
+
+$if(author)$\author{$for(author)$$author$$sep$ \and $endfor$}$endif$
+$if(title)$\title{$title$}$endif$
+$if(subtitle)$\subtitle{$subtitle$}$endif$
+$if(institute)$\institute{$institute$}$endif$
+$if(date)$\date{$date$}$endif$
+
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{1.5\itemsep}\setlength{\parskip}{\parskip}}
+
+% \providecommand{\tightlist}{}
+
+\usepackage{amssymb,amsmath}
+\usepackage{longtable,booktabs}
+
+% \usepackage{enumitem}
+$if(itemsep)$
+\let\OLDitemize\itemize
+\renewcommand\itemize{\OLDitemize\addtolength{\itemsep}{$itemsep$em}}
+$endif$
+
+\begin{document}
+
+
+$for(include-before)$
+$include-before$
+
+$endfor$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Title frame
+%%
+\begin{frame}[t,plain]
+\titlepage
+\setcounter{framenumber}{0}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+$if(toc)$
+\begin{frame}
+\tableofcontents[hideallsubsections]
+\end{frame}
+
+$endif$
+\setlength\itemsep{2em}
+$body$
+
+$if(natbib)$
+$if(biblio-files)$
+$if(biblio-title)$
+$if(book-class)$
+\renewcommand\bibname{$biblio-title$}
+$else$
+\renewcommand\refname{$biblio-title$}
+$endif$
+$endif$
+\bibliography{$biblio-files$}
+
+$endif$
+$endif$
+$if(biblatex)$
+\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+
+$endif$
+
+$for(include-after)$
+$include-after$
+
+$endfor$
+
+\end{document}

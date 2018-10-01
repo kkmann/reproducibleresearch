@@ -1,0 +1,27 @@
+---
+title: Title
+
+subtitle: Subtitle
+
+date: "`r Sys.Date()`"
+
+author: Joe Doe
+
+institute: MRC Biostatistics Unit
+
+fontsize: 8
+
+output: MRCBSUReport::mrcbsu_presentation_pdf
+---
+
+# A Frame Title
+
+```{r,echo=TRUE}
+a <- 1
+```
+
+# Another Frame With Plot
+
+```{r, fig.cap="bla"}
+plot(rnorm(100))
+```

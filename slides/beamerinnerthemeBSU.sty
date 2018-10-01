@@ -1,0 +1,155 @@
+% Copyright 2015 by Paul Kirk
+%
+% Elements of this style file were adapted under the GNU Public License
+% from Marco Barisione's Torino Beamer theme.
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under GPLv3.
+
+\mode<presentation>
+
+\setbeamerfont{author}{size=\Large, family={\fontfamily{phv}}}
+\setbeamerfont{institute}{size=\normalsize, family={\fontfamily{phv}}}
+\setbeamerfont{title}{size=\Huge\bfseries, family={\fontfamily{phv}}}
+\setbeamerfont{subtitle}{size=\Large\normalfont\slshape, family={\fontfamily{phv}}}
+
+% Colors.
+
+\setbeamercolor*{title page header}{parent=palette tertiary}
+
+
+% Margins.
+\newlength{\beamer@fancy@normalmargin}
+\setlength{\beamer@fancy@normalmargin}{.06\paperwidth}
+\setbeamersize{text margin left=\beamer@fancy@normalmargin}
+\setbeamersize{text margin right=\beamer@fancy@normalmargin}
+\setlength\leftmargini{.6\beamer@fancy@normalmargin}
+\setlength\leftmarginii{.6\beamer@fancy@normalmargin}
+\setlength\leftmarginiii{.6\beamer@fancy@normalmargin}
+
+
+
+\defbeamertemplate*{title page}{fancy}[1][]
+{
+
+\vspace{-0.24cm}
+
+
+ {\parskip0pt
+  \hbox{\hskip-\Gm@lmargin\hbox{\vbox{%
+  \@tempdima=\textwidth\textwidth=\paperwidth\hsize=\textwidth\def\\{,}\vbox{}\vskip-0.ex%
+    % Title.
+    \begin{beamercolorbox}[wd=\paperwidth,ht=.1\paperheight,center,#1]{author}
+    \begin{columns}
+                    \column{0.05\textwidth}
+          \column{0.95\textwidth}
+          % Authors, institute and date
+          \vskip1em\par
+          \begin{beamercolorbox}[sep=8pt,center,#1]{institute}
+                       \begin{flushleft}
+              \includegraphics[height=.1\paperheight]{MRC_Biostatistics_Cambridge}
+
+		\vspace{-0.2cm}
+
+		\textcolor{mrcbrown1}{\rule[0.5ex]{0.9\linewidth}{0.5pt}}
+           \end{flushleft}
+          \end{beamercolorbox}
+
+  \end{columns}
+
+    \end{beamercolorbox}%
+    \vskip0pt%
+  }}%
+  \hskip-\Gm@rmargin%
+  }}\hfil%
+
+\vspace{-0.56cm}
+
+
+%
+   {\parskip0pt
+
+  \hbox{\hskip-\Gm@lmargin\hbox{\vbox{%
+  \@tempdima=\textwidth\textwidth=\paperwidth\hsize=\textwidth\def\\{,}\vbox{}\vskip-0.ex%
+
+    % Title.
+    \begin{beamercolorbox}[wd=\paperwidth,ht=.4\paperheight,center,#1,dp=0.9em]{author}
+              \begin{columns}
+          \column{0.05\textwidth}
+          \column{0.95\textwidth}
+          \begin{flushleft}\vspace{-1cm}
+      \usebeamerfont{title} \inserttitle\par%
+      \ifx\insertsubtitle\@empty%
+      \else%
+        \vskip0.25em%
+        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+      \fi%
+             \end{flushleft}
+            \end{columns}
+   \end{beamercolorbox}%
+   \vskip0pt%
+  }}%
+  \hskip-\Gm@rmargin%
+  }}\hfil%
+\vspace{0.33cm}
+  {\parskip0pt
+  \hbox{\hskip-\Gm@lmargin\hbox{\vbox{%
+  \@tempdima=\textwidth\textwidth=\paperwidth\hsize=\textwidth\def\\{,}\vbox{}\vskip-0.ex%
+    % Title.
+    \begin{beamercolorbox}[wd=\paperwidth,ht=.5\paperheight,center,#1]{title page header}
+    \begin{columns}
+          \column{\textwidth}
+          % Authors, institute and date
+          \vskip1em\par
+          \begin{beamercolorbox}[sep=8pt,center,#1]{author}
+          \begin{columns}
+          \column{0.05\textwidth}
+          \column{0.95\textwidth}
+          \begin{flushleft}\vspace{-1cm}
+            \usebeamerfont{author}\insertauthor
+            \end{flushleft}
+            \end{columns}
+          \end{beamercolorbox}\vspace{-0.3cm}
+          \begin{beamercolorbox}[sep=8pt,center,#1]{institute}
+          \begin{columns}
+          \column{0.05\textwidth}
+          \column{0.95\textwidth}
+          \begin{flushleft}\vspace{-1cm}
+            \usebeamerfont{institute}\insertinstitute
+            \end{flushleft}
+            \end{columns}
+          \end{beamercolorbox}\vspace{-0.5cm}
+          \begin{beamercolorbox}[sep=8pt,center,#1]{date}
+          \begin{columns}
+          \column{0.05\textwidth}
+          \column{0.95\textwidth}
+          \begin{flushleft}\vspace{-1cm}
+            \usebeamerfont{date}\insertdate
+            \end{flushleft}
+            \end{columns}
+          \end{beamercolorbox}\vskip0.5em
+  \end{columns}
+
+  \vspace{2cm}
+
+    \end{beamercolorbox}%
+    \vskip0pt%
+  }}%
+  \hskip-\Gm@rmargin%
+  }}\hfil%
+
+
+
+
+
+}
+
+
+
+
+
+
+\mode<all>
+
